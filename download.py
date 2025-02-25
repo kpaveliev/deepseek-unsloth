@@ -6,13 +6,10 @@ from huggingface_hub import snapshot_download
 
 # Load environment variables from .env file
 load_dotenv()
+os.environ['HTTPS_PROXY'] = os.getenv('HTTPS_PROXY')
+os.environ['https_proxy'] = os.getenv('HTTPS_PROXY')
 
 def donwload_unsloth():
-    # Set proxy environment variables
-    if os.getenv('HTTP_PROXY'):
-        os.environ['http_proxy'] = os.getenv('HTTP_PROXY')
-    if os.getenv('HTTPS_PROXY'):
-        os.environ['https_proxy'] = os.getenv('HTTPS_PROXY')
     
     snapshot_download(
         repo_id = "unsloth/DeepSeek-R1-GGUF",
