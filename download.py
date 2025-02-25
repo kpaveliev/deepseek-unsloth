@@ -1,15 +1,23 @@
 # import os # Optional for faster downloading
 # os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
-
+from dotenv import load_dotenv
+import os
 from huggingface_hub import snapshot_download
 
+# Load environment variables from .env file
+load_dotenv()
+
 def donwload_unsloth():
+  # Get HTTPS_PROXY from environment variables
+  https_proxy = os.getenv('HTTPS_PROXY')
+  
   snapshot_download(
     repo_id = "unsloth/DeepSeek-R1-GGUF",
     local_dir = "DeepSeek-R1-GGUF",
     allow_patterns = ["*UD-IQ1_S*"], # Select quant type UD-IQ1_S for 1.58bit
+    proxies={'https': https_proxy} if https_proxy else None
   )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     donwload_unsloth()
