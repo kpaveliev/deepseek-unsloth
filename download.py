@@ -8,16 +8,17 @@ from huggingface_hub import snapshot_download
 load_dotenv()
 
 def donwload_unsloth():
-  # Get HTTPS_PROXY from environment variables
-  https_proxy = os.getenv('HTTPS_PROXY')
-  
-  snapshot_download(
-    repo_id = "unsloth/DeepSeek-R1-GGUF",
-    local_dir = "DeepSeek-R1-GGUF",
-    allow_patterns = ["*UD-IQ1_S*"], # Select quant type UD-IQ1_S for 1.58bit
-    proxies={'https': https_proxy} if https_proxy else None
-  )
-
+    # Set proxy environment variables
+    if os.getenv('HTTP_PROXY'):
+        os.environ['http_proxy'] = os.getenv('HTTP_PROXY')
+    if os.getenv('HTTPS_PROXY'):
+        os.environ['https_proxy'] = os.getenv('HTTPS_PROXY')
+    
+    snapshot_download(
+        repo_id = "unsloth/DeepSeek-R1-GGUF",
+        local_dir = "DeepSeek-R1-GGUF",
+        allow_patterns = ["*UD-IQ1_S*"], # Select quant type UD-IQ1_S for 1.58bit
+    )
 
 if __name__ == "__main__": 
     donwload_unsloth()
