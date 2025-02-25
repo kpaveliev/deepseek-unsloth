@@ -11,3 +11,5 @@ def donwload_unsloth():
   )
 
 
+if __name__ == "__main__":
+    donwload_unsloth()
